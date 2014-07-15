@@ -5,6 +5,14 @@ class ApplicationController < ActionController::Base
 
   before_action :configure_permitted_parameters, if: :devise_controller?
 
+  rescue_from CanCan::AccessDenied do |exception|
+		if current_user.nil? # user is not logged in
+			redirect_to login_url, :alert => "Please log in to continue."
+		else
+			render :file => "#{Rails.root}/public/403.html", :status => 403, :layout => false
+		end
+	end
+
   protected
   def configure_permitted_parameters
     devise_parameter_sanitizer.for(:sign_in) { |u| u.permit(:signin) }
