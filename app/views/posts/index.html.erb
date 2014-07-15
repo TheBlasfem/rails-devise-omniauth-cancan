@@ -20,7 +20,14 @@
         <td><%= post.restricted %></td>
         <td><%= link_to 'Show', post %></td>
         <td><%= link_to 'Edit', edit_post_path(post) %></td>
-        <td><%= link_to 'Destroy', post, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <% if can?(:destroy, post) %>
+          <td><%= link_to 'Destroy', post, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <% end %>
+        <% if cannot?(:destroy, post) %>
+          <td>It looks like you cannot delete this post. If you want this
+          post to be deleted, please contact the administrator or the
+          owner.</td>
+        <% end %>
       </tr>
     <% end %>
   </tbody>
