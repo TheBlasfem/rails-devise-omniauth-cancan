@@ -7,6 +7,9 @@ class Ability
       #User can destroy his ow post
       can :destroy, Post, user_id: user.id
 
+      #users can only see posts if is not restricted
+      can :show, Post, restricted: false
+
       #no logged user cannot destroy posts
       #cannot :destroy, Post, user_id: nil
     end
