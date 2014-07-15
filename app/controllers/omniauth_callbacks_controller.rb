@@ -1,6 +1,6 @@
 class OmniauthCallbacksController < ApplicationController
 
-  def twitter
+  def provider
   	#raise request.env["omniauth.auth"].to_yaml
   	user = User.process_omniauth(request.env["omniauth.auth"])
   	if user.persisted?
@@ -11,5 +11,8 @@ class OmniauthCallbacksController < ApplicationController
 			redirect_to new_user_registration_url
   	end
   end
+
+  alias_method :twitter, :provider
+  alias_method :facebook, :provider
 
 end
