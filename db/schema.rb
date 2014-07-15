@@ -11,7 +11,28 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140714145816) do
+ActiveRecord::Schema.define(version: 20140715030812) do
+
+  create_table "collaborations", force: true do |t|
+    t.integer  "user_id"
+    t.integer  "post_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "collaborations", ["post_id"], name: "index_collaborations_on_post_id"
+  add_index "collaborations", ["user_id"], name: "index_collaborations_on_user_id"
+
+  create_table "posts", force: true do |t|
+    t.integer  "user_id"
+    t.string   "title"
+    t.text     "content"
+    t.boolean  "restricted"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "posts", ["user_id"], name: "index_posts_on_user_id"
 
   create_table "users", force: true do |t|
     t.string   "email",                  default: "", null: false
@@ -32,6 +53,7 @@ ActiveRecord::Schema.define(version: 20140714145816) do
     t.string   "confirmed_at"
     t.datetime "confirmation_sent_at"
     t.integer  "is_active"
+    t.boolean  "admin"
   end
 
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
