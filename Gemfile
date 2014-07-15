@@ -40,3 +40,7 @@ gem 'spring',        group: :development
 
 gem 'devise'
 gem 'cancan', '~> 1.6.0'
+gem 'omniauth', '~> 1.1.4'
+gem 'omniauth-twitter', '~> 1.0.0'
+gem 'omniauth-facebook', '~> 1.4.1'
+gem 'pry-debugger'
